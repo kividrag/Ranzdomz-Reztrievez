@@ -12,9 +12,11 @@ def inference(template, samples, model, tokenizer, batch_size=64):
     model_inputs = prepare_input(template, samples, tokenizer)
 
     #Generate
+    n_batches = math.ceil(len(samples) / batch_size)
+    start_of_batch = [x*batch_size for x in range(n_batches)]
     outputs = [
         model.generate(
-            model_inputs[i:i+batch_size],
+            model_inputs[start: start+batch_size],
             do_sample=True,
             temperature=0.1,
             top_k=50,
@@ -22,7 +24,7 @@ def inference(template, samples, model, tokenizer, batch_size=64):
             repetition_penalty=1.05,
             max_new_tokens=512,
         )
-        for i in range(math.ceil(model_inputs.shape[0]/batch_size))
+        for start in start_of_batch
     ]
 
     decoded_outputs = [
