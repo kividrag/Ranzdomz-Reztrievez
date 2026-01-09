@@ -38,12 +38,12 @@ def inference(template, samples, model, tokenizer, batch_size=64):
 if __name__ == '__main__':
 
     templ = "{prompt}"
-    sample = {"prompt" : "Give me a short introduction to large language model."}
+    samplez = [{"prompt" : "Give me a short introduction to large language model."}]
 
     from model_helper import load_and_prepare_model
 
     m, t = load_and_prepare_model()
 
-    responses = inference(templ, sample, m, t)
+    responses = inference(templ, samplez, m, t)
 
     print(responses[:5])
