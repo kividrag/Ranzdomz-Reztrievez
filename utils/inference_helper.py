@@ -27,7 +27,7 @@ def inference(template, samples, model, tokenizer, batch_size=64):
 
     decoded_outputs = [
         [
-            tokenizer(output[i][len(model_inputs[j*batch_size+i]):], skip_special_tokens=True)
+            tokenizer.decode(output[i][len(model_inputs[j*batch_size+i]):], skip_special_tokens=True)
             for i in range(output.shape[0])
         ]
         for j, output in enumerate(outputs, start=0)
