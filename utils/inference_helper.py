@@ -22,7 +22,7 @@ def inference(template, samples, model, tokenizer, batch_size=64):
             repetition_penalty=1.05,
             max_new_tokens=512,
         )
-        for i in range(math.floor(model_inputs.shape[0]/batch_size))
+        for i in range(math.ceil(model_inputs.shape[0]/batch_size))
     ]
 
     decoded_outputs = [
