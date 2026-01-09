@@ -16,6 +16,7 @@ def prepare_input(template, samples, tokenizer):
         add_generation_prompt=True,
         return_tensors="pt",
         tokenize=True,
+        padding=True,
     ).to("cuda")
 
     return input_ids
