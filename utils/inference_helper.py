@@ -1,5 +1,5 @@
 from unsloth import FastLanguageModel
-from dataset_helper import prepare_input
+from utils.dataset_helper import prepare_input
 
 
 def inference(template, samples, model, tokenizer, batch_size=64):
