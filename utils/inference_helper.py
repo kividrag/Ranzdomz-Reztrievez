@@ -40,7 +40,7 @@ if __name__ == '__main__':
     templ = "{prompt}"
     sample = {"prompt" : "Give me a short introduction to large language model."}
 
-    from utils.model_helper import load_and_prepare_model
+    from model_helper import load_and_prepare_model
 
     m, t = load_and_prepare_model()
 
