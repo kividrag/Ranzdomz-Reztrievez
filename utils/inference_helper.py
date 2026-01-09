@@ -27,10 +27,10 @@ def inference(template, samples, model, tokenizer, batch_size=64):
 
     decoded_outputs = [
         [
-            tokenizer.decode(output[i][len(model_inputs[i]):], skip_special_tokens=True)
+            tokenizer(output[i][len(model_inputs[j*batch_size+i]):], skip_special_tokens=True)
             for i in range(output.shape[0])
         ]
-        for output in outputs
+        for j, output in enumerate(outputs)
     ]
     decoded_outputs = sum(decoded_outputs, [])
 
@@ -39,7 +39,7 @@ def inference(template, samples, model, tokenizer, batch_size=64):
 if __name__ == '__main__':
 
     templ = "{prompt}"
-    samplez = [{"prompt" : "Give me a short introduction to large language model."}]
+    samplez = [{"prompt" : "Give me a short introduction to large language model."}]*128
 
     from model_helper import load_and_prepare_model
 
