@@ -31,7 +31,7 @@ def inference(template, samples, model, tokenizer, batch_size=64, gen_config=Non
         model.generate(
             model_inputs[start: start+batch_size],
             **config,
-        )
+        ).detach().cpu()
         for start in start_of_batch
     ]
 
