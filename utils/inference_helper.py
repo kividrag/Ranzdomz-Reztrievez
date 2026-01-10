@@ -13,12 +13,12 @@ def inference(template, samples, model, tokenizer, batch_size=64, gen_config=Non
 
     # Configuration
     config = {
-        do_sample : True,
-        temperature : 0.1,
-        top_k : 50,
-        top_p : 0.1,
-        repetition_penalty : 1.05,
-        max_new_tokens : 512,
+        "do_sample" : True,
+        "temperature" : 0.1,
+        "top_k" : 50,
+        "top_p" : 0.1,
+        "repetition_penalty" : 1.05,
+        "max_new_tokens" : 512,
     }
 
     if gen_config is not None:
