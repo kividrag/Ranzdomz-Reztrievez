@@ -3,7 +3,7 @@ from unsloth import FastLanguageModel
 from utils.dataset_helper import prepare_input
 
 
-def inference(template, samples, model, tokenizer, batch_size=64):
+def inference(template, samples, model, tokenizer, batch_size=64, gen_config=None):
 
     # Prepare model
     model = FastLanguageModel.for_inference(model)
@@ -11,18 +11,26 @@ def inference(template, samples, model, tokenizer, batch_size=64):
     # Prepare inputs
     model_inputs = prepare_input(template, samples, tokenizer)
 
+    # Configuration
+    config = {
+        do_sample=True,
+        temperature=0.1,
+        top_k=50,
+        top_p=0.1,
+        repetition_penalty=1.05,
+        max_new_tokens=512,
+    }
+
+    if gen_config is not None:
+        config.update(gen_config)
+
     #Generate
     n_batches = math.ceil(len(samples) / batch_size)
     start_of_batch = [x*batch_size for x in range(n_batches)]
     outputs = [
         model.generate(
             model_inputs[start: start+batch_size],
-            do_sample=True,
-            temperature=0.1,
-            top_k=50,
-            top_p=0.1,
-            repetition_penalty=1.05,
-            max_new_tokens=512,
+            **config,
         )
         for start in start_of_batch
     ]
