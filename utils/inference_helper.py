@@ -1,4 +1,5 @@
 import math
+import torch
 from unsloth import FastLanguageModel
 from utils.dataset_helper import prepare_input
 
@@ -27,13 +28,14 @@ def inference(template, samples, model, tokenizer, batch_size=64, gen_config=Non
     #Generate
     n_batches = math.ceil(len(samples) / batch_size)
     start_of_batch = [x*batch_size for x in range(n_batches)]
-    outputs = [
-        model.generate(
-            model_inputs[start: start+batch_size],
-            **config,
-        ).detach().cpu()
-        for start in start_of_batch
-    ]
+    with torch.no_grad():
+        outputs = [
+            model.generate(
+                model_inputs[start: start+batch_size],
+                **config,
+            ).detach().cpu()
+            for start in start_of_batch
+        ]
 
     decoded_outputs = [
         [
