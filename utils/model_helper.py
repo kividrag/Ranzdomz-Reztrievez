@@ -22,7 +22,7 @@ def load_and_prepare_model(model_name="LiquidAI/LFM2.5-1.2B-Instruct", peft_meth
     # Load model in 4-bit
     model, tokenizer = FastLanguageModel.from_pretrained(
         model_name=model_name,
-        max_seq_length=2048,
+        max_seq_length=4096,
         dtype=None,
         load_in_4bit=True,  # Enable 4-bit quantization
     )
