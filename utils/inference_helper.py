@@ -1,5 +1,6 @@
 import math
 import torch
+from tqdm.auto import tqdm
 from unsloth import FastLanguageModel
 from utils.dataset_helper import prepare_input
 
@@ -34,7 +35,7 @@ def inference(template, samples, model, tokenizer, batch_size=64, gen_config=Non
                 model_inputs[start: start+batch_size],
                 **config,
             ).detach().cpu()
-            for start in start_of_batch
+            for start in tqdm(start_of_batch)
         ]
 
     decoded_outputs = [
